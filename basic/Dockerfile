@@ -1,5 +1,18 @@
 # Pull base image.
-FROM ubuntu:19.04
+FROM ubuntu:16.04
+
+ENV LANG=C.UTF-8
+
+# Add files.
+ADD bashrc /root/.bashrc
+# ADD ~/.gitconfig /root/.gitconfig
+# ADD root/.scripts /root/.scripts
+
+# Set environment variables.
+ENV HOME /root
+
+# Define working directory.
+WORKDIR /root
 
 # Install.
 RUN \
@@ -11,16 +24,15 @@ RUN \
   apt-get install -y byobu curl git htop man unzip vim wget && \
   rm -rf /var/lib/apt/lists/*
 
-# Add files.
-ADD ~/.bash_profile /root/.bash_profile
-# ADD ~/.gitconfig /root/.gitconfig
-# ADD root/.scripts /root/.scripts
-
-# Set environment variables.
-ENV HOME /root
-
-# Define working directory.
-WORKDIR /root
+# sshd
+ RUN apt-get update && \
+ apt-get install -y openssh-server sudo && \
+ mkdir /var/run/sshd && \
+ echo 'root:root' | chpasswd && \
+ sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+ # SSH login fix. Otherwise user is kicked off after login
+ sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+ EXPOSE 22
 
 # Define default command.
-CMD ["bash"]
+CMD ["/usr/sbin/sshd", "-D"]

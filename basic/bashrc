@@ -1,4 +1,2 @@
 set  -o vi
-source ~/.git-completion.bash
-
 alias ll='ls -lG'
