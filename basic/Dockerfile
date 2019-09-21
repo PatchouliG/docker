@@ -34,12 +34,5 @@ RUN \
  sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
  EXPOSE 22
 
-# common config file
-run git clone https://github.com/PatchouliG/config &&\
-	cp config/.bash_profile . &&\
-	. ~/.bash_profile &&\
-	cp config/.vimrc /root/ &&\
-	rm -rf config/
-
 # Define default command.
 CMD ["/usr/sbin/sshd", "-D"]
