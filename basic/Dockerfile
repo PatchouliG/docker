@@ -4,7 +4,7 @@ FROM ubuntu:16.04
 ENV LANG=C.UTF-8
 
 # Add files.
-ADD bashrc /root/.bashrc
+#ADD bashrc /root/.bashrc
 # ADD ~/.gitconfig /root/.gitconfig
 # ADD root/.scripts /root/.scripts
 
@@ -33,6 +33,13 @@ RUN \
  # SSH login fix. Otherwise user is kicked off after login
  sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
  EXPOSE 22
+
+# common config file
+run git clone https://github.com/PatchouliG/config &&\
+	cp config/.bash_profile . &&\
+	. ~/.bash_profile &&\
+	cp config/.vimrc /root/ &&\
+	rm -rf config/
 
 # Define default command.
 CMD ["/usr/sbin/sshd", "-D"]
