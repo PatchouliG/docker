@@ -1,12 +1,13 @@
-from patchoulig/basic
-# install java
+from basic
+# install java ssh rsync
 RUN sudo apt-get update && \
 	apt-get install -y openjdk-8-jdk &&\
 	apt-get -y install ssh &&\
 	apt-get -y install rsync  
 
+# java home
 ENV JAVA_VER 8
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-amd64
 
 # ssh key
 RUN  mkdir .ssh &&\
@@ -20,13 +21,11 @@ COPY hadoop-3.1.2.tar.gz .
 RUN	tar -xvf hadoop-3.1.2.tar.gz &&\
 	rm hadoop-3.1.2.tar.gz
 
-ENV HADOOP_HOME hadoop-3.1.2
+ENV HADOOP_HOME /root/hadoop-3.1.2
+ENV PATH="${PATH}:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin"
 
-# common config file
- RUN git clone https://github.com/PatchouliG/config &&\
-	cp config/.bash_profile . &&\
-	. ~/.bash_profile &&\
-	cp config/.vimrc /root/ &&\
-	rm -rf config
+COPY user .
+RUN cat user >> "${HADOOP_HOME}/etc/hadoop/hadoop-env.sh" &&\
+	rm user
 
 CMD ["/usr/sbin/sshd", "-D"]
