@@ -16,7 +16,7 @@ RUN  mkdir .ssh &&\
 # hadoop
 # RUN wget https://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-3.1.2/hadoop-3.1.2.tar.gz &&\
 # use local file
-COPY ~/Download/hadoop-3.1.2.tar.gz . 
+COPY hadoop-3.1.2.tar.gz . 
 RUN	tar -xvf hadoop-3.1.2.tar.gz &&\
 	rm hadoop-3.1.2.tar.gz
 
@@ -27,6 +27,6 @@ ENV HADOOP_HOME hadoop-3.1.2
 	cp config/.bash_profile . &&\
 	. ~/.bash_profile &&\
 	cp config/.vimrc /root/ &&\
-	rm -rf config/
+	rm -rf config
 
-CMD ["bash"]
+CMD ["/usr/sbin/sshd", "-D"]
