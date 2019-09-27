@@ -21,7 +21,7 @@ RUN \
   apt-get -y upgrade && \
   apt-get install -y build-essential && \
   apt-get install -y software-properties-common && \
-  apt-get install -y byobu curl git htop man unzip vim wget && \
+  apt-get install -y byobu curl git htop man unzip vim wget htop tzdata && \
   rm -rf /var/lib/apt/lists/*
 
 # sshd
@@ -41,6 +41,11 @@ RUN \
 	 cp config/.vimrc /root/ &&\
 	 cat config/hosts >> /etc/hosts &&\
 	 rm -rf config
+
+# time zone
+	Run echo "Asia/ShangHai" > /etc/timezone &&\
+	rm -f /etc/localtime &&\
+	dpkg-reconfigure -f noninteractive tzdata
 
 # Define default command.
 CMD ["/usr/sbin/sshd", "-D"]
