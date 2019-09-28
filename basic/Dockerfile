@@ -43,7 +43,7 @@ RUN \
 	 rm -rf config
 
 # time zone
-	Run echo "Asia/ShangHai" > /etc/timezone &&\
+	Run echo "Asia/Shanghai" > /etc/timezone &&\
 	rm -f /etc/localtime &&\
 	dpkg-reconfigure -f noninteractive tzdata
 
