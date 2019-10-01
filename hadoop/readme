@@ -18,3 +18,18 @@ copy core site hdfs site etc
 
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
+
+important
+add to yarn site xml,to see yarn on webit
+<property> 
+  <name>yarn.resourcemanager.webapp.address</name>
+    <value>0.0.0.0:8088</value>
+	</property>
+
+before run 
+hadoop  dfsadmin -safemode leave
+
+tips:
+use jsp
+use start-xx sh
+
