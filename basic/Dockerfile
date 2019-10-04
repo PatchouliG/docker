@@ -24,16 +24,6 @@ RUN \
   apt-get install -y byobu curl git htop man unzip vim wget iputils-ping htop tzdata && \
   rm -rf /var/lib/apt/lists/*
 
-# sshd
- RUN apt-get update && \
- apt-get install -y openssh-server sudo && \
- mkdir /var/run/sshd && \
- echo 'root:root' | chpasswd && \
- sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
- # SSH login fix. Otherwise user is kicked off after login
- sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
- EXPOSE 22
-
 # common config file
  RUN git clone https://github.com/PatchouliG/config &&\
      cp config/.bash_profile . &&\
@@ -41,6 +31,19 @@ RUN \
 	 cp config/.vimrc /root/ &&\
 	 cat config/hosts >> /etc/hosts &&\
 	 rm -rf config
+
+# sshd
+ RUN apt-get update && \
+ apt-get install -y openssh-server sudo && \
+ mkdir /var/run/sshd && \
+ echo 'root:root' | chpasswd && \
+ sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+ # SSH login fix. Otherwise user is kicked off after login
+ sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
+# add ssh key
+ cat config/id_rsa.pub >> /~/.ssh/authorized_keys	
+ EXPOSE 22
+
 
 # time zone
 	Run echo "Asia/Shanghai" > /etc/timezone &&\

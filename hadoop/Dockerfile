@@ -27,6 +27,7 @@ ENV PATH="${PATH}:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin"
 COPY user .
 RUN cat user >> "${HADOOP_HOME}/etc/hadoop/hadoop-env.sh" &&\
 	echo "JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64" >>"${HADOOP_HOME}/etc/hadoop/hadoop-env.sh" &&\ 
+	echo "HADOOP_HOME=${HADOOP_HOME}" >>"${HADOOP_HOME}/etc/hadoop/hadoop-env.sh" &&\ 
 	rm user
 
 CMD ["/usr/sbin/sshd", "-D"]
