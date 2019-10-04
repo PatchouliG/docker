@@ -21,11 +21,12 @@ COPY hadoop-3.1.2.tar.gz .
 RUN	tar -xvf hadoop-3.1.2.tar.gz &&\
 	rm hadoop-3.1.2.tar.gz
 
-ENV HADOOP_HOME /root/hadoop-3.1.2
+ENV HADOOP_HOME="/root/hadoop-3.1.2"
 ENV PATH="${PATH}:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin"
 
 COPY user .
 RUN cat user >> "${HADOOP_HOME}/etc/hadoop/hadoop-env.sh" &&\
+	echo "JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64" >>"${HADOOP_HOME}/etc/hadoop/hadoop-env.sh" &&\ 
 	rm user
 
 CMD ["/usr/sbin/sshd", "-D"]
