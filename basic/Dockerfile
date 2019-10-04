@@ -29,8 +29,7 @@ RUN \
      cp config/.bash_profile . &&\
 	 . ~/.bash_profile &&\
 	 cp config/.vimrc /root/ &&\
-	 cat config/hosts >> /etc/hosts &&\
-	 rm -rf config
+	 cat config/hosts >> /etc/hosts 
 
 # sshd
  RUN apt-get update && \
@@ -42,7 +41,9 @@ RUN \
  sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
 # add ssh key
  mkdir ~/.ssh/ && \
- cat config/id_rsa.pub >> ~/.ssh/authorized_keys	
+ cat config/id_rsa.pub >> ~/.ssh/authorized_keys &&\
+# run sshd
+ /usr/sbin/sshd -D
  EXPOSE 22
 
 
