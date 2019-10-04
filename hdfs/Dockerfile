@@ -15,10 +15,10 @@ RUN  mkdir .ssh &&\
 	cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 # hadoop
-# RUN wget https://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-3.1.2/hadoop-3.1.2.tar.gz &&\
+RUN wget https://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-3.1.2/hadoop-3.1.2.tar.gz &&\
 # use local file
-COPY hadoop-3.1.2.tar.gz . 
-RUN	tar -xvf hadoop-3.1.2.tar.gz &&\
+# COPY hadoop-3.1.2.tar.gz . 
+	tar -xvf hadoop-3.1.2.tar.gz &&\
 	rm hadoop-3.1.2.tar.gz
 
 ENV HADOOP_HOME="/root/hadoop-3.1.2"
