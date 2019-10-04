@@ -29,6 +29,10 @@ add to yarn site xml,to see yarn on webit
 before run 
 hadoop  dfsadmin -safemode leave
 
+ufw:
+Port 7946 TCP/UDP for container network discovery.
+Port 4789 UDP for the container ingress network.
+
 tips:
 use jsp
 use start-xx sh

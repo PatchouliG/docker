@@ -21,7 +21,7 @@ RUN \
   apt-get -y upgrade && \
   apt-get install -y build-essential && \
   apt-get install -y software-properties-common && \
-  apt-get install -y byobu curl git htop man unzip vim wget htop tzdata && \
+  apt-get install -y byobu curl git htop man unzip vim wget iputils-ping htop tzdata && \
   rm -rf /var/lib/apt/lists/*
 
 # sshd
