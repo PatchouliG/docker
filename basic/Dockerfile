@@ -41,7 +41,8 @@ RUN \
  # SSH login fix. Otherwise user is kicked off after login
  sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
 # add ssh key
- cat config/id_rsa.pub >> /~/.ssh/authorized_keys	
+ mkdir ~/.ssh/ && \
+ cat config/id_rsa.pub >> ~/.ssh/authorized_keys	
  EXPOSE 22
 
 
