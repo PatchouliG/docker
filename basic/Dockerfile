@@ -40,8 +40,6 @@ RUN \
 # set ssh public key
  mkdir ~/.ssh &&\
  cp ~/config/id_rsa ~/.ssh/ &&\
-# run sshd
- /usr/sbin/sshd -D
  EXPOSE 22
 
 
@@ -51,4 +49,4 @@ RUN \
 	dpkg-reconfigure -f noninteractive tzdata
 
 # Define default command.
-CMD ["bash"]
+CMD ["/usr/sbin/sshd" "-D"]
