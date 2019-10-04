@@ -21,7 +21,7 @@ RUN \
   apt-get -y upgrade && \
   apt-get install -y build-essential && \
   apt-get install -y software-properties-common && \
-  apt-get install -y byobu curl git htop man unzip vim wget iputils-ping htop tzdata && \
+  apt-get install -y byobu curl git htop man unzip vim wget iputils-ping htop tzdata openssh-server && \
   rm -rf /var/lib/apt/lists/*
 
 # common config file
@@ -32,16 +32,14 @@ RUN \
 	 cat config/hosts >> /etc/hosts 
 
 # sshd
- RUN apt-get update && \
- apt-get install -y openssh-server sudo && \
- mkdir /var/run/sshd && \
- echo 'root:root' | chpasswd && \
- sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+ RUN mkdir /var/run/sshd &&\
+ echo 'root:root' | chpasswd &&\
+ sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config &&\
  # SSH login fix. Otherwise user is kicked off after login
- sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
-# add ssh key
- mkdir ~/.ssh/ && \
- cat config/id_rsa.pub >> ~/.ssh/authorized_keys &&\
+ sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd &&\
+# set ssh public key
+ mkdir ~/.ssh &&\
+ cp ~/config/id_rsa ~/.ssh/ &&\
 # run sshd
  /usr/sbin/sshd -D
  EXPOSE 22
@@ -53,4 +51,4 @@ RUN \
 	dpkg-reconfigure -f noninteractive tzdata
 
 # Define default command.
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ["bash"]
