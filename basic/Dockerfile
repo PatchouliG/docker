@@ -49,4 +49,4 @@ RUN \
 	dpkg-reconfigure -f noninteractive tzdata
 
 # Define default command.
-CMD ["/usr/sbin/sshd" "-D"]
+CMD ["/usr/sbin/sshd","-D"]
