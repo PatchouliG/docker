@@ -28,6 +28,6 @@ echo 'export PATH=${PATH}:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin' >> ~/.bash_pro
 # ssh
 RUN cat config/id_rsa.pub >> ~/.ssh/authorized_keys &&\
  	cp config/id_rsa.pub ~/.ssh  &&\
-    echo $'Host * \n StrictHostKeyChecking no' >> ~/.ssh/config
+    echo 'Host * \n StrictHostKeyChecking no' >> ~/.ssh/config
 
 CMD ["/usr/sbin/sshd","-D"]
