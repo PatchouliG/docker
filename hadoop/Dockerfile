@@ -24,10 +24,12 @@ RUN wget https://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-3.1.2/
 ENV HADOOP_HOME="/root/hadoop-3.1.2"
 ENV PATH="${PATH}:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin"
 
-COPY user .
+COPY . .
 RUN cat user >> "${HADOOP_HOME}/etc/hadoop/hadoop-env.sh" &&\
 	echo "JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64" >>"${HADOOP_HOME}/etc/hadoop/hadoop-env.sh" &&\ 
 	echo "HADOOP_HOME=${HADOOP_HOME}" >>"${HADOOP_HOME}/etc/hadoop/hadoop-env.sh" &&\ 
-	rm user
+	rm user &&\
+	cp hdfs-site.xml ${HADOOP_HOME}/etc/hadoop/ &&\
+	rm hdfs-site.xml
 
 CMD ["/usr/sbin/sshd", "-D"]

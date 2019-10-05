@@ -44,9 +44,12 @@ RUN \
 
 
 # time zone
-	Run echo "Asia/Shanghai" > /etc/timezone &&\
+Run echo "Asia/Shanghai" > /etc/timezone &&\
 	rm -f /etc/localtime &&\
 	dpkg-reconfigure -f noninteractive tzdata
+# disable ufw
+RUN ufw disable
+ 
 
 # Define default command.
 CMD ["/usr/sbin/sshd","-D"]
