@@ -25,7 +25,8 @@ RUN wget https://www-us.apache.org/dist/hadoop/common/hadoop-3.1.2/hadoop-3.1.2.
 	rm hadoop-3.1.2.tar.gz
 
 # PATH
-RUN  echo 'export PATH = ${PATH}:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin' >> ~/.bash_profile
+RUN  echo 'HADOOP_HOME=/root/hadoop-3.1.2' >> ~/.bash_profile &&
+echo 'export PATH = ${PATH}:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin' >> ~/.bash_profile
 
 
 CMD ["/usr/sbin/sshd","-D"]
