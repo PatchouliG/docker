@@ -1,5 +1,4 @@
 FROM basic
-COPY etc  etc 
 
 # install java ssh rsync
 RUN apt-get update && \
@@ -20,13 +19,13 @@ RUN wget https://www-us.apache.org/dist/hadoop/common/hadoop-3.1.2/hadoop-3.1.2.
 	tar -xvf hadoop-3.1.2.tar.gz &&\
 # delete etc
 	rm -rf ${HADOOP_HOME}/etc &&\
-# mv etc
-	mv etc ${HADOOP_HOME} &&\
 	rm hadoop-3.1.2.tar.gz
 
-# PATH
+# BIN PATH
 RUN  echo 'HADOOP_HOME=/root/hadoop-3.1.2' >> ~/.bash_profile &&\
 echo 'export PATH=${PATH}:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin' >> ~/.bash_profile
 
+# ssh
+RUN cat config/id_rsa.pub >> ~/.ssh/authorized_key
 
 CMD ["/usr/sbin/sshd","-D"]
