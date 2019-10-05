@@ -39,17 +39,14 @@ RUN \
  sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd &&\
 # set ssh public key
  mkdir ~/.ssh &&\
- cp ~/config/id_rsa ~/.ssh/  &&\
- EXPOSE 22
+ cp ~/config/id_rsa ~/.ssh/  
 
+ EXPOSE 22
 
 # time zone
 Run echo "Asia/Shanghai" > /etc/timezone &&\
 	rm -f /etc/localtime &&\
 	dpkg-reconfigure -f noninteractive tzdata
-# disable ufw
-RUN ufw disable
- 
 
 # Define default command.
 CMD ["/usr/sbin/sshd","-D"]
