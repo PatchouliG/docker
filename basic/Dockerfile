@@ -39,7 +39,8 @@ RUN \
  sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd &&\
 # set ssh public key
  mkdir ~/.ssh &&\
- cp ~/config/id_rsa ~/.ssh/  
+ cp ~/config/id_rsa ~/.ssh/  &&\
+ chmod 0600 ~/.ssh/id_rsa
 
  EXPOSE 22
 
