@@ -26,6 +26,7 @@ RUN  echo 'HADOOP_HOME=/root/hadoop-3.1.2' >> ~/.bash_profile &&\
 echo 'export PATH=${PATH}:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin' >> ~/.bash_profile
 
 # ssh
-RUN cat config/id_rsa.pub >> ~/.ssh/authorized_key
+RUN cat config/id_rsa.pub >> ~/.ssh/authorized_key &&\
+ 	cp config/id_rsa.pub ~/.ssh 
 
 CMD ["/usr/sbin/sshd","-D"]
