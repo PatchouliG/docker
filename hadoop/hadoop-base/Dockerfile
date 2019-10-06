@@ -17,8 +17,6 @@ ENV PATH="${PATH}:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin"
 # hadoop
 RUN wget https://www-us.apache.org/dist/hadoop/common/hadoop-3.1.2/hadoop-3.1.2.tar.gz &&\
 	tar -xvf hadoop-3.1.2.tar.gz &&\
-# delete etc
-	rm -rf ${HADOOP_HOME}/etc &&\
 	rm hadoop-3.1.2.tar.gz
 
 # BIN PATH
