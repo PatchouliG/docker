@@ -7,6 +7,6 @@ merge etc_common to etc_orgin
 must set hdfs in core-site
 
 ## volume
-mount data node dir
+mount  to /home/hadoop/data/nameNode
 
 ## example 
