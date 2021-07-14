@@ -25,7 +25,9 @@ RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list &
   apt-get install -y build-essential && \
   apt-get install -y software-properties-common && \
   apt-get install -y curl tzdata git htop man unzip vim wget htop linux-tools-generic gcc gdb g++ cmake tmux sysstat telnet openssh-server rsync 
-#  rm -rf /var/lib/apt/lists/*
+
+# port
+EXPOSE 22 8000 8080
 
 # timezone 
 ENV TZ=Asia/Shanghai
@@ -53,7 +55,6 @@ RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_confi
 RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
 RUN mkdir /root/.ssh
 
-EXPOSE 22
 
 CMD    ["/usr/sbin/sshd", "-D"]
 
