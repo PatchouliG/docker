@@ -1,5 +1,5 @@
 # Pull base image.
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 ENV LANG=C.UTF-8
 
@@ -49,12 +49,9 @@ ln -s /usr/lib/linux-tools/*/perf /usr/bin/
 # EXPOSE 22
 
 # ssh
-RUN mkdir /var/run/sshd
+RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 RUN echo 'root:root' |chpasswd
-RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
-RUN mkdir /root/.ssh
-
+RUN service ssh start
 
 CMD    ["/usr/sbin/sshd", "-D"]
 
