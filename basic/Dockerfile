@@ -14,8 +14,6 @@ ENV HOME /root
 # Define working directory.
 WORKDIR /root
 
-# vi mode
-RUN echo "set -o vi" > ~/.bashrc
 
 # Install.
 ARG DEBIAN_FRONTEND=noninteractive
@@ -25,6 +23,12 @@ RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list &
   apt-get install -y build-essential && \
   apt-get install -y software-properties-common && \
   apt-get install -y curl tzdata git htop man unzip vim wget htop linux-tools-generic gcc gdb g++ cmake tmux sysstat telnet openssh-server rsync 
+
+# tmux
+ADD .tmux.conf ~/
+# bashrc
+RUN echo set -o vi > ~/.bashrc
+
 
 # port
 EXPOSE 22 8000 8080
