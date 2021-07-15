@@ -31,7 +31,7 @@ RUN echo set -o vi > ~/.bashrc
 
 
 # port
-EXPOSE 22 8000 8080
+EXPOSE 22 7000 8000 8080 10000
 
 # timezone 
 ENV TZ=Asia/Shanghai
