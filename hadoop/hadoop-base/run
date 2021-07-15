@@ -1,0 +1,2 @@
+docker run -t -d -p22:22 -p50070:50070 -p8088:8088 hadoop-base
+# docker run -t -d -p22:22 -p50070:50070 -p8088:8088 --mount type=bind,src=/Users/wn/code/practice/hadoop-dev/,target=/docker/share/ hadoop_dev
