@@ -22,7 +22,7 @@ RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list &
   apt-get -y upgrade && \
   apt-get install -y build-essential && \
   apt-get install -y software-properties-common && \
-  apt-get install -y curl tzdata git htop man unzip vim wget htop linux-tools-generic gcc gdb g++ cmake tmux sysstat telnet openssh-server rsync 
+  apt-get install -y curl tzdata git htop man unzip vim wget htop linux-tools-generic gcc gdb g++ cmake tmux sysstat telnet openssh-server rsync maven
 
 # tmux
 ADD .tmux.conf ~/
